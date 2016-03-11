@@ -13,7 +13,7 @@ public class UserInfoDaoImpl {
 
 	private QueryRunner runner=new QueryRunner(DataSourceManager.getDataSource());
 	public List<Map<String, Object>> getUserInfoList(int userid) {
-		String sql = "select bonus,level,usersession,ordercount,favoritescount from user where userid=?";
+		String sql = "select userid,username,bonus,level,usersession,ordercount,favoritescount from user where userid=?";
 		try {
 			 return runner.query(sql, new MapListHandler(), userid);
 		} catch (SQLException e) {

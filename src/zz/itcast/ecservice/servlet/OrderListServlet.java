@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import zz.itcast.ecservice.dao.OrderDaoImpl;
 import zz.itcast.ecservice.domain.ErrorMessage;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * 订单
@@ -51,20 +52,32 @@ public class OrderListServlet extends HttpServlet {
 		// ]
 		// 调用业务类
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("response", "orderlist");
+		data.put("response", "orderList");
 		OrderDaoImpl orderDao = new OrderDaoImpl();
 		int type = 1;
 		int page = 0;
 		int pageNum = 10;
 		int userid = 110; // 默认查询110的
 		try {
-			type = Integer.parseInt(req.getParameter("type"));
+			String typeStr = req.getParameter("type");
+			if (typeStr == null||"".equals(typeStr)) {
+				DefaultUtils.defalutError(resp, "type 不能为空");
+				return;
+			}
+			type = Integer.parseInt(typeStr);
 			String userIdParameter = req.getParameter("userid");
-
+			if (userIdParameter == null||"".equals(userIdParameter)) {
+				DefaultUtils.defalutError(resp, "userid 不能为空");
+				return;
+			}
 			userid = Integer.parseInt(userIdParameter);
 
-			page = Integer.parseInt(req.getParameter("page"));
-			pageNum = Integer.parseInt(req.getParameter("pageNum"));
+			String pageStr = req.getParameter("page");
+			pageStr = DefaultUtils.defalut(pageStr, "1");
+			page = Integer.parseInt(pageStr);
+			String pageNumStr = req.getParameter("pageNum");
+			pageNumStr = DefaultUtils.defalut(pageNumStr, "10");
+			pageNum = Integer.parseInt(pageNumStr);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			// {
@@ -82,7 +95,7 @@ public class OrderListServlet extends HttpServlet {
 		}
 		List<Map<String, Object>> orderList = orderDao.getOrderList(userid,
 				type, page, pageNum);
-		data.put("orderlist", orderList);
+		data.put("orderList", orderList);
 		System.out.println(data);
 		CommonUtil.renderJson(resp, data);
 	}

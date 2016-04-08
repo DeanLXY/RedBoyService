@@ -9,6 +9,14 @@ public class Invoice {
 	/*`userId` int(11) NOT NULL,
 	  `title` varchar(20) default NULL,
 	  `content` varchar(100) default NULL*/
+	private  Integer id;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	private  Integer userId;
 	private String title;
 	private String content;

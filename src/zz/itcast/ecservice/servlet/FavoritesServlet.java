@@ -43,9 +43,9 @@ public class FavoritesServlet extends HttpServlet {
 		String pageNumStr = request.getParameter("pageNum");
 		pageNumStr = DefaultUtils.defalut(pageNumStr, "10");
 		int pagenum=Integer.parseInt(pageNumStr);
-		String useridStr = request.getParameter("userId");
+		String useridStr = request.getParameter("userid");
 		if (useridStr == null || "".equals(useridStr)) {
-//			DefaultUtils.defalutError(response, "userId 不能为空");
+			DefaultUtils.defalutError(response, "userId 不能为空");
 			return;
 		}
 		int userid=Integer.parseInt(useridStr);
@@ -53,10 +53,10 @@ public class FavoritesServlet extends HttpServlet {
 		data.put("response", "favorites");
 		FavoritesDaoImpl daoImpl=new FavoritesDaoImpl();
 		List<Map<String, Object>> favoritesList = daoImpl.getFavoritesList(userid,page,pagenum);
-		data.put("productlist", favoritesList);
+		data.put("productList", favoritesList);
 		int favoritesNum = daoImpl.getFavoritesNum(userid);
 		
-		data.put("list_count",favoritesNum);
+		data.put("listCount",favoritesNum);
 		CommonUtil.renderJson(response, data);
 		
 		

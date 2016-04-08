@@ -79,16 +79,16 @@ public class AddressDaoImpl {
 	 * 
 	 * @param id
 	 */
-	public void getDeleteAddress(int id) {
+	public int getDeleteAddress(int id) {
 		try {
 			QueryRunner runner = new QueryRunner(
 					DataSourceManager.getDataSource());
 			String sql = "delete from address where id = ?";
-			runner.update(sql, id);
+			return runner.update(sql, id);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("删除出现异常");
 		}
+		return 0;
 	}
 
 	public void getUpdateAddress(Address a) {
@@ -113,6 +113,7 @@ public class AddressDaoImpl {
 		}
 	}
 	public List<Map<String, Object>> getCityId(String string){
+		System.out.println("AddressDaoImpl.getCityId()>>>>"+string);
 		String sql = "select id from addressarea where value=?";
 		QueryRunner runner = new QueryRunner(DataSourceManager.getDataSource());
 		try {

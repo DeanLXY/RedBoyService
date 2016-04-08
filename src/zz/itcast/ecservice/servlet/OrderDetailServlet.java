@@ -18,6 +18,7 @@ import zz.itcast.ecservice.dao.PaymentInfoDaoImpl;
 import zz.itcast.ecservice.dao.ProductListDaoImpl;
 import zz.itcast.ecservice.domain.Product;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * 获取订单详情
@@ -49,6 +50,10 @@ public class OrderDetailServlet extends HttpServlet {
 		OrderDaoImpl orderDao = new OrderDaoImpl();
 
 		String orderId = req.getParameter("orderid");
+		if (orderId == null || orderId.equals("")) {
+			DefaultUtils.defalutError(resp, "orderid 不能为空!");
+			return;
+		}
 		// 封装OrderInfo
 		Map<String, Object> order = orderDao.getOderDetail(orderId);
 		data.put("order_info", order);

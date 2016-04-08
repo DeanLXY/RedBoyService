@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.AddressDaoImpl;
+import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * Servlet implementation class AddressDeleteServlet
@@ -35,10 +37,20 @@ public class AddressDeleteServlet extends HttpServlet {
 
 	private void data(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("request", "addressdelete");
+		data.put("request", "addressDelete");
 		AddressDaoImpl daoImpl = new AddressDaoImpl();
-		int id = Integer.parseInt(request.getParameter("id"));
-		daoImpl.getDeleteAddress(id);
+		String idStr = request.getParameter("id");
+		if (idStr == null ||"".equals(idStr)) {
+			DefaultUtils.defalutError(response, "删除的地址id 不能为空!");
+			return;
+		}
+		int id = Integer.parseInt(idStr);
+		int count = daoImpl.getDeleteAddress(id);
+		if (count>0) {
+			CommonUtil.renderJson(response, data);
+		}else{
+			DefaultUtils.defalutError(response, "地址删除失败!");
+		}
 		
 	}
 

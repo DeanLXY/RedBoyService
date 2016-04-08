@@ -14,7 +14,7 @@ public class InvoiceDaoImpl {
 			DataSourceManager.getDataSource());
 
 	public List<Invoice> getInvoiceList(int userId ) {
-		String sql = "SELECT title,content FROM invoiceinfo WHERE userId=?";
+		String sql = "SELECT id,title FROM invoiceinfo WHERE userId=?";
 		try {
 			return runner.query(sql, new BeanListHandler<Invoice>(Invoice.class), userId);
 		} catch (SQLException e) {

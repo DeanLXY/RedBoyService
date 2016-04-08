@@ -52,13 +52,21 @@ public class CheckOutServlet extends HttpServlet {
 		deliveryList.add(new Delivery("2", "双休日及公众假期送货"));
 		deliveryList.add(new Delivery("3", "时间不限，工作日双休日及公众假期均可送货"));
 		data.put("deliveryList", deliveryList);
+		Map<String, Object> propertyMap = new HashMap<String, Object>();
+		propertyMap.put("key", "颜色");
+		propertyMap.put("value", "红色");
+
+		List<Map<String, Object>> productProertyLists = new ArrayList<Map<String, Object>>();
+
 		List<Product> productList = new ArrayList<Product>();
 		Product product = new Product();
+		productProertyLists.add(propertyMap);
+		product.setProductProertyLists(productProertyLists);
 		product.setId(1102539);
 		product.setName("雅培金装");
 		product.setPrice(89);
 		Pic pic = new Pic();
-		pic.setPicUrl("http://192.168.0.100:8080/ECServicez8/images/12.jpg");
+		pic.setPicUrl("/images/12.jpg");
 		product.setPic(pic);
 		product.setProdNum(83);
 
@@ -68,12 +76,31 @@ public class CheckOutServlet extends HttpServlet {
 		product.setName("雅培金装");
 		product.setPrice(89);
 		pic = new Pic();
-		pic.setPicUrl("http://192.168.0.100:8080/ECServicez8/images/12.jpg");
+		pic.setPicUrl("/images/12.jpg");
 		product.setPic(pic);
 		product.setProdNum(10);
-
+		productProertyLists = new ArrayList<Map<String, Object>>();
+		propertyMap = new HashMap<String, Object>();
+		propertyMap.put("key", "颜色");
+		propertyMap.put("value", "蓝色");
+		productProertyLists.add(propertyMap);
+		product.setProductProertyLists(productProertyLists);
 		productList.add(product);
 		data.put("productList", productList);
+//		"checkoutAddup":{            //总计
+//			  "totalCount":"3",            //商品数量总计
+//			  "totalPrice":"230",          //商品金额总计
+//			  "totalPoint":"230"，        //商品积分总计
+//			  "freight":"10"              //运费
+//			}
+		
+//		Map<String, Object> checkoutMap = new HashMap<String, Object>();
+		Map<String, Object> checkoutDetailMap = new HashMap<String, Object>();
+		checkoutDetailMap.put("totalCount", "2");
+		checkoutDetailMap.put("totalPrice", "249.5");
+		checkoutDetailMap.put("totalPoint", "250");
+		checkoutDetailMap.put("freight", "6");
+		data.put("checkoutAddup", checkoutDetailMap);
 		CommonUtil.renderJson(response, data);
 	}
 

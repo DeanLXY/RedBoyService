@@ -44,10 +44,10 @@ public class UserInfoServlet extends HttpServlet {
 			return;
 		}
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("response", "userinfo");
+		data.put("response", "userInfo");
 		UserInfoDaoImpl daoImpl=new UserInfoDaoImpl();
-		List<Map<String, Object>> userInfoList = daoImpl.getUserInfoList(Integer.parseInt(userid));
-		data.put("userinfo", userInfoList.get(0));
+		 Map<String, Object> userInfoList = daoImpl.getUserInfoList(Integer.parseInt(userid));
+		data.put("userInfo", userInfoList);
 		CommonUtil.renderJson(response, data);
 		
 		

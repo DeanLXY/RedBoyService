@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		data.put("response", "login");
-		data.put("userinfo",loginList.get(0));
+		data.put("userInfo",loginList.get(0));
 		CommonUtil.renderJson(response, data);
 	}
 

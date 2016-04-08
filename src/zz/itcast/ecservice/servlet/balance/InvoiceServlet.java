@@ -26,7 +26,7 @@ public class InvoiceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		userId = Integer.parseInt(request.getParameter("userId"));
+		userId = Integer.parseInt(request.getParameter("userid"));
 		data(request,response);
 		
 	}

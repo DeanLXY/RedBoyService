@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import zz.itcast.ecservice.dao.balance.LogisticDaoImpl;
 import zz.itcast.ecservice.domain.Logistics;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 @WebServlet("/logistics")
 public class LogisticsServlet extends HttpServlet {
@@ -33,7 +34,12 @@ public class LogisticsServlet extends HttpServlet {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("response", "logistics");
 		LogisticDaoImpl dao = new LogisticDaoImpl();
-		String orderid = request.getParameter("orderId");
+		String orderid = request.getParameter("orderid");
+		
+		if (orderid == null || "".equals(orderid)) {
+			DefaultUtils.defalutError(response, "orderid 不能为空!");
+			return;
+		}
 		Logistics logistics = dao.getLogisticByOrderId(orderid);
 
 		data.put("logistics", logistics);

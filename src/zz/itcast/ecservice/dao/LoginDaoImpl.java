@@ -14,7 +14,7 @@ public class LoginDaoImpl {
 	protected QueryRunner runner = new QueryRunner(
 			DataSourceManager.getDataSource());
 	public List<Map<String, Object>> getLoginList(String username,String password) {
-		String sql = "select userid,level,bonus from user where username=? and password=?";
+		String sql = "select userid userId,level,bonus from user where username=? and password=?";
 		try {
 			 return runner.query(sql, new MapListHandler(), username,password);
 		} catch (SQLException e) {

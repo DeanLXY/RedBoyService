@@ -1,24 +1,23 @@
 package zz.itcast.ecservice.dao;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import zz.itcast.ecservice.utils.DataSourceManager;
 
-public class VersionDaoImpl {
-
+public class FavoritesAddDaoImpl {
 	private QueryRunner runner=new QueryRunner(DataSourceManager.getDataSource());
-	public List<Map<String, Object>> getVersion() {
-		String sql = "SELECT * FROM version ORDER BY VERSION DESC";
+	
+	public int add2Fatorites(String pid, String userid) {
+		String sql = "insert into favorites(productid,userid) values(?,?)";
+		
 		try {
-			 return runner.query(sql, new MapListHandler());
+			return runner.update(sql, pid,userid);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return 0;
 	}
+
 }

@@ -15,7 +15,7 @@ public class RegisterDaoImpl {
 	
 	public List<Map<String, Object>> getRegisterList(String username,String password) {
 		String insertSql="insert into user (username,password) values (?,?)";
-		String sql = "select userid from user where username=? and password=?";
+		String sql = "select userid userId from user where username=? and password=?";
 		try {
 			runner.update(insertSql, username,password);
 			return runner.query(sql, new MapListHandler(), username,password);

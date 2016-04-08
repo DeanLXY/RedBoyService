@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import zz.itcast.ecservice.dao.AddressDaoImpl;
 import zz.itcast.ecservice.domain.Address;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * Servlet implementation class AddressInsertServlet
@@ -47,8 +48,23 @@ public class AddressInsertServlet extends HttpServlet {
 		String fixedtel = request.getParameter("fixedtel");
 		String zipCode = request.getParameter("zipCode");
 		String province = request.getParameter("province");
+		if (province == null ||"".equals(province)) {
+			DefaultUtils.defalutError(response, "province 不能为空,只能在支持的配货范围内进行!");
+			return;
+		}
+		
+		
 		String city = request.getParameter("city");
+		if (city == null ||"".equals(city)) {
+			DefaultUtils.defalutError(response, "city 不能为空,只能在支持的配货范围内进行!");
+			return;
+		}
+		
 		String area = request.getParameter("area");
+		if (area == null ||"".equals(area)) {
+			DefaultUtils.defalutError(response, "area 不能为空,只能在支持的配货范围内进行!");
+			return;
+		}
 		
 		List<Map<String, Object>> provinceId = daoImpl.getProvinceId(province);
 		Map<String, Object> map = provinceId.get(0);

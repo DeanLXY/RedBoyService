@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.OrderDaoImpl;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * Servlet implementation class SubmitOrderServlet
@@ -40,6 +41,12 @@ public class SubmitOrderServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userid");
 		String productInfos = request.getParameter("sku");
+		if (productInfos == null || productInfos.equals("")) {
+			DefaultUtils.defalutError(response, "sku 不能为空!");
+			return;
+		}
+		
+		
 		String addressId = request.getParameter("addressid");
 		String paymentId = request.getParameter("paymentid");
 		String delivetyId = request.getParameter("deliveryid");
@@ -52,8 +59,8 @@ public class SubmitOrderServlet extends HttpServlet {
 		//orderInfo = dao.insertNewOrder("1", "101211:2:2,3|10211:2:4,3", "1", "1", "3", "1", "参数太多了", "gogogogoogogogogoo");
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("response", "ordersumbit");
-		data.put("orderinfo",orderInfo);
+		data.put("response", "orderSumbit");
+		data.put("orderInfo",orderInfo);
 		
 		
 		CommonUtil.renderJson(response, data);

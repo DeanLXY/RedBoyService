@@ -159,7 +159,6 @@ public class OrderDaoImpl {
 			
 			String str_date = format.format(date);
 			double totalPrice = 0;
-			productInfos = "101211:2:2,3|10211:2:4,3";
 			String[] cartItems = productInfos.split("\\|");
 			for (String cartItem : cartItems) {
 				String[] infos = cartItem.split(":");
@@ -192,9 +191,9 @@ public class OrderDaoImpl {
 			int freight = random.nextInt(30);
 			
 			Map<String,Object> orderInfo = new HashMap<String, Object>();
-			orderInfo.put("orderid", orderId);
+			orderInfo.put("orderId", orderId);
 			orderInfo.put("price", totalPrice+freight);
-			orderInfo.put("paymenttype", payType);
+			orderInfo.put("paymentType", payType);
 			
 			return orderInfo;
 			

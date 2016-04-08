@@ -50,7 +50,7 @@ public class RegisterServlet extends HttpServlet {
 		RegisterDaoImpl daoImpl=new RegisterDaoImpl();
 		List<Map<String, Object>> registerList = daoImpl.getRegisterList(username, password);
 		data.put("response", "register");
-		data.put("userinfo",registerList.get(0) );
+		data.put("userInfo",registerList.get(0) );
 		CommonUtil.renderJson(response, data);
 	}
 

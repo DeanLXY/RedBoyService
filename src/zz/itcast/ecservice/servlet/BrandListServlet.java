@@ -35,8 +35,6 @@ public class BrandListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("test brand");
-		
 		BrandDaoImpl dao = new BrandDaoImpl();
 		List<HashMap<String, Object>> info = dao.getBrandList();
 		

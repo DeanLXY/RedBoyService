@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.FavoritesDaoImpl;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * Servlet implementation class FavoritesServlet
@@ -36,9 +37,18 @@ public class FavoritesServlet extends HttpServlet {
 		data(request, response);
 	}
 	private void data(HttpServletRequest request, HttpServletResponse response) {
-		int page=Integer.parseInt(request.getParameter("page"));
-		int pagenum=Integer.parseInt(request.getParameter("pageNum"));
-		int userid=Integer.parseInt(request.getParameter("userId"));
+		String pageStr = request.getParameter("page");
+		pageStr = DefaultUtils.defalut(pageStr, "1");
+		int page=Integer.parseInt(pageStr);
+		String pageNumStr = request.getParameter("pageNum");
+		pageNumStr = DefaultUtils.defalut(pageNumStr, "10");
+		int pagenum=Integer.parseInt(pageNumStr);
+		String useridStr = request.getParameter("userId");
+		if (useridStr == null || "".equals(useridStr)) {
+//			DefaultUtils.defalutError(response, "userId 不能为空");
+			return;
+		}
+		int userid=Integer.parseInt(useridStr);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("response", "favorites");
 		FavoritesDaoImpl daoImpl=new FavoritesDaoImpl();

@@ -25,9 +25,9 @@ public class CommentDaoImpl {
 		// 　　 "content":"东西不错", //评论内容
 		// 　　 "username":"用户", //评论用户
 		// 　　 "time":"2001-12-24 23:00:00" //评论时间
-		String sql = "SELECT title,content,username,time FROM comment WHERE productid=? limit ?,?";
+		String sql = "SELECT title,content,username,time FROM comment WHERE productid=?";
 		try {
-			return runner.query(sql, new MapListHandler(), pId, (page - 1) * pageNum, pageNum);
+			return runner.query(sql, new MapListHandler(), pId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.ProductListDaoImpl;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * 获得限时抢购商品列表
@@ -34,18 +35,20 @@ public class LimitBuyProdListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest  request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("test LimitBuyProdListServlet");
-		
-		int page = Integer.parseInt(request.getParameter("page"));
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		String pageStr = request.getParameter("page");
+		pageStr = DefaultUtils.defalut(pageStr, "1");
+		int page = Integer.parseInt(pageStr);
+		String pageNumStr = request.getParameter("pageNum");
+		pageNumStr = DefaultUtils.defalut(pageNumStr, "10");
+		int pageNum = Integer.parseInt(pageNumStr);
 		
 		ProductListDaoImpl dao = new ProductListDaoImpl();
 		List<Map<String,Object>> limitBuyProdList = dao.getLimitBuyProdList(page, pageNum);
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("response", "limitbuy");
-		data.put("list_count","15");
-		data.put("productlist", limitBuyProdList);
+		data.put("listCount",limitBuyProdList.size());
+		data.put("productList", limitBuyProdList);
 		
 		
 		CommonUtil.renderJson(response, data);

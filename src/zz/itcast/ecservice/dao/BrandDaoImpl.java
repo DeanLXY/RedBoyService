@@ -24,12 +24,12 @@ public class BrandDaoImpl {
 	public List<HashMap<String, Object>> getBrandList() {
 		List<HashMap<String, Object>> info = new ArrayList<HashMap<String, Object>>();
 		QueryRunner run = new QueryRunner(db);
-		String sql1 = "SELECT id,selection FROM recommendbrand";
+		String sql1 = "SELECT * FROM recommendbrand";
 		try {
 			List<Object[]> query1 = run.query(sql1, new ArrayListHandler());
 			for (Object[] obj : query1) {
 				String recommendid = obj[0].toString();
-				String sql2 = "SELECT id,name,picurl FROM brandinfo WHERE recommendid = ?";
+				String sql2 = "SELECT id,name,pic FROM brandinfo WHERE recommendid = ?";
 				List<Map<String, Object>> query2 = run.query(sql2,
 						new MapListHandler(), recommendid);
 

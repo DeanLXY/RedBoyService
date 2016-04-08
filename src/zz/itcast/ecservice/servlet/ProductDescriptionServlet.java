@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.ProductDescriptionDaoImpl;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * 商品描述的servlet
@@ -32,6 +33,9 @@ public class ProductDescriptionServlet extends HttpServlet {
 			pId = Integer.parseInt(request.getParameter("pId"));
 		} catch (Exception e) {
 			// TODO pid数据出错
+			DefaultUtils.defalutError(response, "pid 不能为空");
+			
+			return ;
 		}
 		data(request, response);
 	}
@@ -46,7 +50,7 @@ public class ProductDescriptionServlet extends HttpServlet {
 		ProductDescriptionDaoImpl daoImpl = new ProductDescriptionDaoImpl();
 		List<Map<String, Object>> productDesc = daoImpl.getProductDesc(pId);
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("response", "product_description");
+		data.put("response", "productDescription");
 		data.put("productdesc", productDesc);
 		CommonUtil.renderJson(response, data);
 	}

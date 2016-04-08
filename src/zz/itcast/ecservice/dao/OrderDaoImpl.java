@@ -147,6 +147,7 @@ public class OrderDaoImpl {
 		// invoicetype 发票类型 1=>个人 2=>单位
 		// invoicetitle 发票抬头 北京红孩子互联科技有限公司
 		// invoicecontent 发票内容 1
+		
 
 		try {
 
@@ -158,6 +159,7 @@ public class OrderDaoImpl {
 			
 			String str_date = format.format(date);
 			double totalPrice = 0;
+			productInfos = "101211:2:2,3|10211:2:4,3";
 			String[] cartItems = productInfos.split("\\|");
 			for (String cartItem : cartItems) {
 				String[] infos = cartItem.split(":");

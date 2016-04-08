@@ -37,9 +37,10 @@ public class CartServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("test CartServlet");
 
+		String userid = request.getParameter("userid");
 		String sku = request.getParameter("sku");
 		Map<String, Object> data = new HashMap<String, Object>();
-		if (null == sku || "".equals(sku)) {
+		if (null == userid || "".equals(userid)) {
 			data.put("response", "error");
 			ErrorMessage msg = new ErrorMessage("userid  不能为空");
 			data.put("error", msg);
@@ -47,6 +48,7 @@ public class CartServlet extends HttpServlet {
 			return;
 		}
 		// 1200001:3:1,2|1200004:2:2,3 商品Id:数量:属性id,属性id...|商品Id:数量:属性id,属性id...
+
 		CartDaoImpl dao = new CartDaoImpl();
 
 		data = dao.getCartInfo(sku);

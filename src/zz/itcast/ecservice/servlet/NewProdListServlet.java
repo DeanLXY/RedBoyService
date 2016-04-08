@@ -48,9 +48,9 @@ public class NewProdListServlet extends HttpServlet {
 		List<Map<String,Object>> newProdList = dao.getNewProdList(page, pageNum, orderby);
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("response", "newproduct");
-		data.put("list_count","15");
-		data.put("productlist", newProdList);
+		data.put("response", "newProduct");
+		data.put("listCount",newProdList.size());
+		data.put("productList", newProdList);
 		
 		
 		CommonUtil.renderJson(response, data);

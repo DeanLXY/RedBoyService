@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import zz.itcast.ecservice.dao.ProductListDaoImpl;
 import zz.itcast.ecservice.domain.ErrorMessage;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * Servlet implementation class ProductList
@@ -51,11 +52,24 @@ public class ProductListServlet extends HttpServlet {
 		System.out.println("ProductListServlet.doGet()");
 
 		try {
-			page = Integer.parseInt(request.getParameter("page"));
-			pageNum = Integer.parseInt(request.getParameter("pagenum"));
-			cID = Integer.parseInt(request.getParameter("cid"));
+			
+			String cIdStr = request.getParameter("cid");
+			if (cIdStr == null || "".equals(cIdStr)) {
+				DefaultUtils.defalutError(response, "cid 不能为空!");
+				return ;
+			}
+			
+			cID = Integer.parseInt(cIdStr);
+			String pageStr = request.getParameter("page");
+			pageStr = DefaultUtils.defalut(pageStr, "1");
+			page = Integer.parseInt(pageStr);
+			String pageNumStr = request.getParameter("pagenum");
+			pageNumStr = DefaultUtils.defalut(pageNumStr, "10");
+			pageNum = Integer.parseInt(pageNumStr);
+		
 			// sale_down(销量降序)，price_up(价格升序)，price_down(价格降序)
 			orderBy = request.getParameter("orderby");
+			orderBy = DefaultUtils.defalut(orderBy, "sale_down");
 			filter = request.getParameter("filter");
 
 
@@ -81,8 +95,8 @@ public class ProductListServlet extends HttpServlet {
 		ProductListDaoImpl daoImpl = new ProductListDaoImpl();
 		List<Map<String, Object>> productList = daoImpl.getProductList(page, pageNum, cID, orderBy, filter);
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("response", "category_productlist");
-		data.put("productlist", productList);
+		data.put("response", "categoryProductlist");
+		data.put("productList", productList);
 		data.put("list_count", 1500); // TODO 商品总数
 		CommonUtil.renderJson(response, data);
 	}

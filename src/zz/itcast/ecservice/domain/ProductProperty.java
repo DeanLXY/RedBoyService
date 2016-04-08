@@ -35,4 +35,12 @@ public class ProductProperty {
 		this.prodValue = prodValue;
 	}
 
+	public ProductProperty(Integer id, String prodKey, String prodValue) {
+		super();
+		this.id = id;
+		this.prodKey = prodKey;
+		this.prodValue = prodValue;
+	}
+
+	
 }

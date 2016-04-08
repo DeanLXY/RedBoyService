@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.UserInfoDaoImpl;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * Servlet implementation class UserInfoServlet
@@ -38,6 +39,10 @@ public class UserInfoServlet extends HttpServlet {
 
 	private void data(HttpServletRequest request, HttpServletResponse response) {
 		String userid = request.getParameter("userid");
+		if (null == userid|| "".equals(userid)) {
+			DefaultUtils.defalutError(response, "userid 不能为空");
+			return;
+		}
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("response", "userinfo");
 		UserInfoDaoImpl daoImpl=new UserInfoDaoImpl();

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.CommentDaoImpl;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * 评论的servlet
@@ -29,7 +30,13 @@ public class CommentServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			pId = Integer.parseInt(request.getParameter("pId"));
+			String pidStr = request.getParameter("pId");
+			if (pidStr == null) {
+				DefaultUtils.defalutError(response, "pId 不能为空");
+				return;
+			}
+			
+			pId = Integer.parseInt(pidStr);
 			page = Integer.parseInt(request.getParameter("page"));
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		} catch (Exception e) {
@@ -50,9 +57,8 @@ public class CommentServlet extends HttpServlet {
 
 		List<Map<String, Object>> commentInfoList = daoImpl.getCommentInfoList(pId, page, pageNum);
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("response", "product_comment");
+		data.put("response", "productComment");
 		data.put("comment", commentInfoList);
-		data.put("list_count", "1500");
 		CommonUtil.renderJson(response, data);
 	}
 

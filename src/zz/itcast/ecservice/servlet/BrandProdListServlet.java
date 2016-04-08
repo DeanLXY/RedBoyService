@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import zz.itcast.ecservice.dao.ProductListDaoImpl;
 import zz.itcast.ecservice.utils.CommonUtil;
+import zz.itcast.ecservice.utils.DefaultUtils;
 
 /**
  * 查询某一品牌下所有商品列表.
@@ -35,11 +36,20 @@ public class BrandProdListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("test BrandProdListServlet");
-		
-		int page = Integer.parseInt(request.getParameter("page"));
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		int brandId = Integer.parseInt(request.getParameter("id"));
+ 
+		String idStr = request.getParameter("id");
+		if (idStr == null || "".equals(idStr)) {
+			DefaultUtils.defalutError(response, "id 不能为空!");
+			return ;
+		}
+		String pageStr = request.getParameter("page");
+		pageStr = DefaultUtils.defalut(pageStr, "1");
+		int page = Integer.parseInt(pageStr);
+		String pageNumStr = request.getParameter("pageNum");
+		pageNumStr = DefaultUtils.defalut(pageNumStr, "10");
+		int pageNum = Integer.parseInt(pageNumStr);
+	
+		int brandId = Integer.parseInt(idStr);
 		String orderby = request.getParameter("orderby");
 		
 		
@@ -48,9 +58,9 @@ public class BrandProdListServlet extends HttpServlet {
 		Map<String, Object> data = new HashMap<String, Object>();
 		
 //		"response": "topic_productlist",  "list_count":"15"  productlist
-		data.put("response", "brand_productlist");
-		data.put("list_count","15");
-		data.put("productlist", prodList);
+		data.put("response", "brandProductlist");
+		data.put("listCount",prodList.size());
+		data.put("productList", prodList);
 		
 		
 		CommonUtil.renderJson(response, data);

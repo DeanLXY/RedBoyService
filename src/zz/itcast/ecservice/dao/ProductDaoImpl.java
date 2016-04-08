@@ -62,7 +62,7 @@ public class ProductDaoImpl {
 
 		try {
 			String prodInfoSql = "SELECT * FROM product WHERE id=?";
-			return runner.query(prodInfoSql, new MapListHandler(), pID);
+			return runner.query(prodInfoSql, new MapListHandler(), 2);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,9 +80,9 @@ public class ProductDaoImpl {
 		try {
 			QueryRunner runner = new QueryRunner(DataSourceManager.getDataSource());
 
-			String productPropertySql = "SELECT id,prodkey,prodvalue FROM product_property WHERE prodid=?";
+			String productPropertySql = "SELECT id,prodkey,prodvalue FROM product_property WHERE id=?";
 			List<ProductProperty> prodPropertyList = runner.query(productPropertySql,
-					new BeanListHandler<ProductProperty>(ProductProperty.class), pID);
+					new BeanListHandler<ProductProperty>(ProductProperty.class), 1);
 			return prodPropertyList;
 		} catch (Exception e) {
 			e.printStackTrace();
